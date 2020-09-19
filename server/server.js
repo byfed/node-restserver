@@ -1,6 +1,9 @@
 require('./config/config');
 
 const express = require('express')
+const mongoose = require('mongoose');
+const colors = require('colors');
+
 const bodyParser = require('body-parser')
 const { urlencoded } = require('express')
 
@@ -12,40 +15,52 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-app.get('/usuario', function(req, res) {
-    res.json('get Usuario')
-})
 
-app.post('/usuario', function(req, res) {
+//Importacion de rutas
+app.use(require('./routes/usuario'));
 
-    let body = req.body;
+//Se mueven las rutas del usuario a server/routes/usuario.js
+// app.get('/usuario', function(req, res) {
+//     res.json('get Usuario Local')
+// })
 
-    if (body.nombre === undefined) {
-        res.status(400).json({
-            ok: false,
-            mensaje: 'El nombre es necesario'
-        })
-    } else {
-        res.json({
-            persona: body
-        })
+// app.post('/usuario', function(req, res) {
 
-    }
+//     let body = req.body;
 
-})
+//     if (body.nombre === undefined) {
+//         res.status(400).json({
+//             ok: false,
+//             mensaje: 'El nombre es necesario'
+//         })
+//     } else {
+//         res.json({
+//             persona: body
+//         })
 
-app.put('/usuario/:id', function(req, res) {
+//     }
 
-    let id = req.params.id;
+// })
 
-    res.json({
-        id
-    })
-})
+// app.put('/usuario/:id', function(req, res) {
 
-app.delete('/usuario', function(req, res) {
-    res.json('delete Usuario')
-})
+//     let id = req.params.id;
+
+//     res.json({
+//         id
+//     })
+// })
+
+// app.delete('/usuario', function(req, res) {
+//     res.json('delete Usuario')
+// })
+
+mongoose.connect(process.env.URLDB, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    }).then((resp) => { console.log('Connected to Mongo!!'.green); })
+    .catch((error) => { console.log('Error connecting to Mongo'.red, error); });
+
 
 app.listen(process.env.PORT, () => {
     console.log("Escuchando puerto ", process.env.PORT);
