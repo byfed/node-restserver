@@ -17,7 +17,11 @@ app.use(bodyParser.json())
 
 
 //Importacion de rutas
-app.use(require('./routes/usuario'));
+//app.use(require('./routes/usuario'));
+//app.use(require('./routes/login'));
+//Para evitar muchas lineas de rutas, creamos un fichero index que hace referencia a todas las rutas y simplemente usamos ese fichero
+app.use(require('./routes/index'));
+
 
 //Se mueven las rutas del usuario a server/routes/usuario.js
 // app.get('/usuario', function(req, res) {

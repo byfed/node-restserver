@@ -6,6 +6,13 @@ process.env.PORT = process.env.PORT || 3000;
 //si no existe la variable estamos en en desarrollo. Si existe estamos en producción
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+//gestión del token
+//fecha de vencimiento: 
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+process.env.SEED_TOKEN = process.env.SEED_TOKEN || 'este-es-el-seed-desarrollo';
+
+
+
 //base de datos
 let urlDB;
 
