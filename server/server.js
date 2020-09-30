@@ -3,6 +3,8 @@ require('./config/config');
 const express = require('express')
 const mongoose = require('mongoose');
 const colors = require('colors');
+//para dar acceso correcto a la carpeta public
+const path = require('path');
 
 const bodyParser = require('body-parser')
 const { urlencoded } = require('express')
@@ -14,6 +16,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+
+
+//habilitar la carpeta public para poder acceder
+app.use(express.static(path.resolve(__dirname, "../public")));
+console.log(path.resolve(__dirname, "../public"));
 
 
 //Importacion de rutas
